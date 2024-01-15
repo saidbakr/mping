@@ -11,6 +11,7 @@ TIME_IN_MS=$2
 START_TIME=$(date +%s)
 SHORTEST_TIME=999999
 LONGEST_TIME=0
+TOTAL_COUNTER=0
 LONG_COUNTER=0
 
 # Function to print in red color
@@ -34,7 +35,7 @@ display_stats() {
     echo -e "\e[1;33;4;44mTotal running time: $((RUN_TIME/60)) minute(s)\e[0m"
     print_cyan "Shortest response time: $SHORTEST_TIME ms"
     print_red "Longest response time: $LONGEST_TIME ms"
-    print_yellow "Total count of responses exceed $TIME_IN_MS ms: $LONG_COUNTER"
+    print_yellow "Responses exceed $TIME_IN_MS ms: \033[1m$LONG_COUNTER\033[1m of $TOTAL_COUNTER"
     exit 0
 }
 
@@ -45,7 +46,8 @@ trap display_stats SIGINT
 while true; do
     # Get the ping response
     PING_RESPONSE=$(ping -c 1 $IP_ADDRESS | grep 'time=')
-    
+    # Increase the TOTAL_COUNTER by 1
+    ((TOTAL_COUNTER++))
     # Check if the ping response contains a time value
     if [[ $PING_RESPONSE =~ time=([0-9.]+) ]]; then
         RESPONSE_TIME=${BASH_REMATCH[1]}
@@ -62,7 +64,7 @@ while true; do
         if [ "$(echo "$RESPONSE_TIME > $TIME_IN_MS" | bc)" -eq 1 ]; then
             # Print the response line in red color
             print_red "$PING_RESPONSE"
-            #Increase LONG_COUNTER
+            #Increase LONG_COUNTER by 1
             ((LONG_COUNTER++))
             # Play a short beep sound using the beep command            
             beep -f 1000 -l 100
