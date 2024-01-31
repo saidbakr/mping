@@ -72,7 +72,7 @@ while true; do
             echo "$PING_RESPONSE"
         fi
     else
-        echo "Host is not reachable or response time is not available."
+        print_yellow "✘: Host is not reachable or response time is not available."
     fi
 
     # Wait for a second before the next ping
