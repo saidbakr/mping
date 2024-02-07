@@ -13,6 +13,7 @@ SHORTEST_TIME=999999
 LONGEST_TIME=0
 TOTAL_COUNTER=0
 LONG_COUNTER=0
+PERCENT=0
 
 # Function to print in red color
 print_red() {
@@ -35,7 +36,8 @@ display_stats() {
     echo -e "\e[1;33;4;44mTotal running time: $((RUN_TIME/60)) minute(s)\e[0m"
     print_cyan "Shortest response time: $SHORTEST_TIME ms"
     print_red "Longest response time: $LONGEST_TIME ms"
-    print_yellow "Responses exceed $TIME_IN_MS ms: \033[1m$LONG_COUNTER\033[1m of $TOTAL_COUNTER"
+    PERCENT=$(echo "scale=2; $LONG_COUNTER/$TOTAL_COUNTER*100" | bc)
+    print_yellow "Responses exceed $TIME_IN_MS ms: \033[1m$LONG_COUNTER\033[1m of $TOTAL_COUNTER i.e. $PERCENT%"
     exit 0
 }
 
