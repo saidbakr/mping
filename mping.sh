@@ -65,16 +65,16 @@ while true; do
         # Check if the response time is greater than the specified time
         if [ "$(echo "$RESPONSE_TIME > $TIME_IN_MS" | bc)" -eq 1 ]; then
             # Print the response line in red color
-            print_red "$PING_RESPONSE"
+            print_red "[$TOTAL_COUNTER] $PING_RESPONSE"
             #Increase LONG_COUNTER by 1
             ((LONG_COUNTER++))
             # Play a short beep sound using the beep command            
             beep -f 1000 -l 100
         else
-            echo "$PING_RESPONSE"
+            echo "[$TOTAL_COUNTER] $PING_RESPONSE"
         fi
     else
-        print_yellow "✘: Host is not reachable or response time is not available."
+        print_yellow "[$TOTAL_COUNTER] ✘: Host is not reachable or response time is not available."
     fi
 
     # Wait for a second before the next ping
