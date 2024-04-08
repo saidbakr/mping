@@ -19,6 +19,16 @@ chmod +x mping.sh
 
 sudo cp mping.sh /usr/bin/mping
 ```
+## Notice:
+For systems that **do not support the `beep` command such as OpenSuse**. You can install the `sox` package and then use it play a mp3 file with the beep sound from a bash script named `beep` placed in `/usr/bin` directory with execution permissions. The following steps may help:
+
+1. Install `sox` package `sudo zypper install sox`
+2. Create a file named `beep.sh` with the following line `play -q beep-sound.mp3` and save the file.
+3. Download any beep mp3 sound file of your choice and rename it to `beep-sound.mp3`
+4. Make the bash script file executable by `chmod +x beep.sh`
+5. copy the two files to `/usr/bin` by `sudo cp beep.sh /usr/bin/beep` *note, we removed the extension from* `beep.sh` and `sudo cp beep-sound.mp3 /usr/bin/beep-sound.mp3`
+
+Now the beep command inside the script will be emulated using the script we have done above.
 
 # About
 This script has initiated using [Bing Chat](https://www.microsoft.com/en-us/edge/features/bing-chat) and I added some modifications to it.
