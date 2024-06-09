@@ -32,8 +32,9 @@ print_yellow() {
 display_stats() {
     END_TIME=$(date +%s)
     RUN_TIME=$((END_TIME-START_TIME))
-    echo ""
+    echo ""    
     echo -e "\e[1;33;4;44mTotal running time: $((RUN_TIME/60)) minute(s)\e[0m"
+    echo "Address: $IP_ADDRESS"
     print_cyan "Shortest response time: $SHORTEST_TIME ms"
     print_red "Longest response time: $LONGEST_TIME ms"
     PERCENT=$(echo "scale=2; $LONG_COUNTER/$TOTAL_COUNTER*100" | bc)
